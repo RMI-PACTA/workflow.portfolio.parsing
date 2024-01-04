@@ -1,0 +1,13 @@
+services:
+  parser:
+    build: .
+    volumes:
+      - type: bind
+        source: ./input
+        target: /mnt/input
+        read_only: true
+      - type: bind
+        source: ./output
+        target: /mnt/output
+        read_only: true
+
