@@ -1,12 +1,13 @@
 #' @export
 process_directory <- function(
-  directory = "/mnt/input"
+  input_directory = "/mnt/input",
+  output_directory = "/mnt/output"
 ) {
   # Get the list of files in the directory
   files <- list.files(directory, full.names = TRUE)
   # Process each file
   for (file in files) {
-    logger::log_info("Processing file: ", file)
+    reexport_portfolio(filepath = file)
   }
   logger::log_info("Done processing directory.")
 }
