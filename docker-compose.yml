@@ -1,6 +1,9 @@
 services:
   parser:
     build: .
+    stdin_open: true
+    tty: true
+    command: ["sh"]
     volumes:
       - type: bind
         source: ./input
@@ -9,5 +12,5 @@ services:
       - type: bind
         source: ./output
         target: /mnt/output
-        read_only: true
+        read_only: false
 

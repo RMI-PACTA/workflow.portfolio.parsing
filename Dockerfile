@@ -1,5 +1,4 @@
-# TODO Deleteme FROM alpine:3.19.0
-FROM rhub/r-minimal:4.3.2
+FROM rocker/r-ver:4.3.2
 
 # set Docker image labels
 LABEL org.opencontainers.image.source=https://github.com/RMI-PACTA/workflow.portfolio.parsing
@@ -22,24 +21,23 @@ RUN echo "options(repos = c(CRAN = '$CRAN_REPO'), pkg.sysreqs = FALSE)" >> "${R_
 COPY DESCRIPTION /workflow.portfolio.parser/DESCRIPTION
 
 # install pak, find dependencises from DESCRIPTION, and install them.
-RUN installr -p \
-  && Rscript -e "\
+RUN Rscript -e "\
+    install.packages('pak'); \
     deps <- pak::local_deps(root = '/workflow.portfolio.parser'); \
     pkg_deps <- deps[!deps[['direct']], 'ref']; \
-    r_pkg_deps <- paste(pkg_deps, collapse = ' '); \
-    writeLines(text = r_pkg_deps, con = '/tmp/R_PKG_DEPS'); \
-    " \
-  && xargs installr -c < /tmp/R_PKG_DEPS
+    pak::pak(pkg_deps); \
+    "
 
 # copy in everything from this repo
 COPY . /workflow.portfolio.parser
 
-RUN installr -d local::/workflow.portfolio.parser
+RUN Rscript -e "pak::pak('local::/workflow.portfolio.parser')" \
+  && Rscript -e "remove.packages('pak')"
 
 # set default run behavior
 CMD ["Rscript", "-e", "logger::log_threshold(Sys.getenv('LOG_LEVEL', 'INFO'));workflow.portfolio.parsing::process_directory('/mnt/input')"]
 
 # Don't run as root
-RUN adduser -D portfolio-parser
+RUN useradd -m portfolio-parser
 USER portfolio-parser
 WORKDIR /home/portfolio-parser
