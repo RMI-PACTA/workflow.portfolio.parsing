@@ -35,13 +35,15 @@ export_portfolio <- function(
   )
   logger::log_trace("Portfolio data digest: ", output_digest)
 
-  browser()
-
-  portfolio_metadata <- list(
-    output_digest = output_digest,
-    output_filename = output_filename,
-    output_rows = output_rows
+  portfolio_metadata <- c(
+    list(
+      output_digest = output_digest,
+      output_filename = output_filename,
+      output_rows = output_rows
+      ),
+    as.list(group_data)
   )
+
 
   return(portfolio_metadata)
 }

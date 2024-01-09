@@ -34,9 +34,11 @@ reexport_portfolio <- function(
     .data = portfolio_data,
     dplyr::pick(group_cols)
   )
-  if (identical(group_cols, character(0))) {
-  } else {
-    logger::log_trace("Portfolio data grouped by: ", length(group_cols))
+  subportfolios_count <- nrow(dplyr::group_keys(grouped_portfolios))
+    logger::log_warn(subportfolios_count, " portfolios detected in file.")
+  if (length(group_cols) > 0) {
+    logger::log_trace("Portfolio data grouped by ", length(group_cols), " cols")
+    logger::log_trace(paste(group_cols, collapse = ", "))
   }
 
   logger::log_trace("Exporting portfolio data.")
@@ -57,11 +59,12 @@ reexport_portfolio <- function(
       x$input_filename <- input_filename
       x$input_filename <- input_filename
       x$input_entries <- input_entries
+      x$subportfolios_count <- subportfolios_count
       x$group_cols <- group_cols
       return(x)
     }
   )
 
-  logger::log_info("Finished with file: ", input_filepath)
+  logger::log_info("Finished processing file: ", input_filepath)
   return(full_portfolio_summary)
 }
