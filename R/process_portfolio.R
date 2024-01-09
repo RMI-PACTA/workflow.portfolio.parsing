@@ -1,3 +1,4 @@
+#' @export
 reexport_portfolio <- function(
   input_filepath,
   output_directory
