@@ -25,6 +25,10 @@ Imports:
     digest,
     dplyr,
     logger,
-    pacta.portfolio.import
+    pacta.portfolio.import,
+    uuid
 Remotes:
     RMI-PACTA/pacta.portfolio.import
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
