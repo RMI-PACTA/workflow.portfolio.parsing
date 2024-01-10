@@ -5,6 +5,31 @@ export_portfolio <- function(
   output_directory
 ) {
 
+  logger::log_trace("cleaning and rearranging data prior to export")
+  output_cols <- c("isin", "market_value", "currency")
+  extra_cols <- setdiff(colnames(portfolio_data), output_cols)
+  if (length(extra_cols)){
+    logger::log_warn(
+      "Extra columns detected in portfolio data: ",
+      extra_cols,
+      " Discarding."
+    )
+    warning("Extra columns detected in portfolio data. Discarding.")
+  }
+  missing_cols <- setdiff(output_cols, colnames(portfolio_data))
+  if (length(missing_cols)){
+    logger::log_warn(
+      "Missing columns detected in portfolio data: ",
+      missing_cols,
+    )
+    stop("Missing columns detected in portfolio data.")
+  }
+
+  portfolio_data <- dplyr::select(
+    .data = portfolio_data,
+    dplyr::all_of(output_cols)
+  )
+
   output_rows <- nrow(portfolio_data)
 
   output_filename <- paste0(

@@ -46,14 +46,12 @@ expect_simple_portfolio_output <- function(
     )
   )
   # Check that output file has correct column types.
-  testthat::expect_equal(
-    sapply(file_contents, class),
-    c(
-      isin = "character",
-      market_value = "numeric",
-      currency = "character"
-    )
+  testthat::expect_equal(class(file_contents[["isin"]]), "character")
+  testthat::expect_in(
+    class(file_contents[["market_value"]]),
+    c("numeric", "integer")
   )
+  testthat::expect_equal(class(file_contents[["currency"]]), "character")
   # check that metadata row count is same as actual
   testthat::expect_equal(
     metadata[["output_rows"]],
