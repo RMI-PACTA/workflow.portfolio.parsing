@@ -11,7 +11,7 @@ empty_groups <- data.frame()
 
 test_that("re-exporting simple file works.", {
   test_file <- system.file(
-    "extdata", "portfolios", "simple_portfolio.csv",
+    "extdata", "portfolios", "simple.csv",
     package = "workflow.portfolio.parsing"
   )
   filehash <- digest::digest(
@@ -61,7 +61,7 @@ test_that("re-exporting simple exported file yields same file.", {
 if (FALSE) {
   test_that("re-exporting simple file with only portfolio name", {
     test_file <- system.file(
-      "extdata", "portfolios", "simple_portfolio_portfolioname.csv",
+      "extdata", "portfolios", "simple_portfolioname.csv",
       package = "workflow.portfolio.parsing"
     )
     filehash <- digest::digest(
@@ -89,7 +89,7 @@ if (FALSE) {
 
   test_that("re-exporting simple file with only investor name works", {
     test_file <- system.file(
-      "extdata", "portfolios", "simple_portfolio_investorname.csv",
+      "extdata", "portfolios", "simple_investorname.csv",
       package = "workflow.portfolio.parsing"
     )
     filehash <- digest::digest(
@@ -118,7 +118,7 @@ if (FALSE) {
 
 test_that("re-exporting simple file with all columns works", {
   test_file <- system.file(
-    "extdata", "portfolios", "simple_portfolio_all_columns.csv",
+    "extdata", "portfolios", "simple_all-columns.csv",
     package = "workflow.portfolio.parsing"
   )
   filehash <- digest::digest(
@@ -146,7 +146,7 @@ test_that("re-exporting simple file with all columns works", {
 
 test_that("re-exporting multiportfolio file with all columns works", {
   test_file <- system.file(
-    "extdata", "portfolios", "simple_multi_portfolio.csv",
+    "extdata", "portfolios", "multi_simple_all-columns.csv",
     package = "workflow.portfolio.parsing"
   )
   filehash <- digest::digest(
