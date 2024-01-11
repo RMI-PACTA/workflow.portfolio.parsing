@@ -6,6 +6,7 @@ logger::log_threshold("FATAL")
 # establish testing tempdir
 test_dir <- tempdir()
 withr::defer(unlink(test_dir))
+
 empty_groups <- data.frame()
 simple_portfolio <- tibble::tribble(
   ~isin, ~market_value, ~currency,
@@ -18,7 +19,7 @@ test_that("exporting a file works, no grouping", {
     group_data = empty_groups,
     output_directory = test_dir
   )
-  expect_simple_portfolio_output(output_dir = test_dir, metadata = metadata)
+  expect_simple_export_portfolio(output_dir = test_dir, metadata = metadata)
 })
 
 test_that("exporting works, against reordered columns", {
@@ -31,7 +32,7 @@ test_that("exporting works, against reordered columns", {
     group_data = empty_groups,
     output_directory = test_dir
   )
-  expect_simple_portfolio_output(output_dir = test_dir, metadata = metadata)
+  expect_simple_export_portfolio(output_dir = test_dir, metadata = metadata)
 })
 
 test_that("exporting works, against extra columns", {
@@ -47,7 +48,7 @@ test_that("exporting works, against extra columns", {
     ),
     regexp = "^Extra columns detected in portfolio data. Discarding.$"
   )
-  expect_simple_portfolio_output(output_dir = test_dir, metadata = metadata)
+  expect_simple_export_portfolio(output_dir = test_dir, metadata = metadata)
 })
 
 test_that("exporting fails when missing columns", {
@@ -75,7 +76,7 @@ test_that("exporting a file works, simple grouping", {
     group_data = simple_groups,
     output_directory = test_dir
   )
-  expect_simple_portfolio_output(
+  expect_simple_export_portfolio(
     output_dir = test_dir,
     metadata = metadata,
     investor_name = "Simple Investor",
@@ -93,7 +94,7 @@ test_that("exporting a file works, port name grouping", {
     group_data = simple_groups,
     output_directory = test_dir
   )
-  expect_simple_portfolio_output(
+  expect_simple_export_portfolio(
     output_dir = test_dir,
     metadata = metadata,
     investor_name = NULL,
@@ -111,7 +112,7 @@ test_that("exporting a file works, investor name grouping", {
     group_data = simple_groups,
     output_directory = test_dir
   )
-  expect_simple_portfolio_output(
+  expect_simple_export_portfolio(
     output_dir = test_dir,
     metadata = metadata,
     investor_name = "Simple Investor",

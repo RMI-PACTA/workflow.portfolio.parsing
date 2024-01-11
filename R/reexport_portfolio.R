@@ -32,7 +32,7 @@ reexport_portfolio <- function(
 
   grouped_portfolios <- dplyr::group_by(
     .data = portfolio_data,
-    dplyr::pick(group_cols)
+    dplyr::pick(dplyr::all_of(group_cols))
   )
   subportfolios_count <- nrow(dplyr::group_keys(grouped_portfolios))
     logger::log_warn(subportfolios_count, " portfolios detected in file.")
@@ -55,12 +55,11 @@ reexport_portfolio <- function(
   full_portfolio_summary <- purrr::map(
     .x = portfolio_summary,
     .f = function(x) {
-      x$input_digest <- input_digest
-      x$input_filename <- input_filename
-      x$input_filename <- input_filename
-      x$input_entries <- input_entries
-      x$subportfolios_count <- subportfolios_count
-      x$group_cols <- group_cols
+      x[["input_digest"]] <- input_digest
+      x[["input_filename"]] <- input_filename
+      x[["input_entries"]] <- input_entries
+      x[["subportfolios_count"]] <- subportfolios_count
+      x[["group_cols"]] <- group_cols
       return(x)
     }
   )
