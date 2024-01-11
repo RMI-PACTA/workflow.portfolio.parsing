@@ -1,6 +1,6 @@
 simple_portfolio_hash <- digest::digest(
   object = system.file(
-    "extdata", "portfolios", "simple_output.csv",
+    "extdata", "portfolios", "output_simple.csv",
     package = "workflow.portfolio.parsing"
   ),
   file = TRUE,

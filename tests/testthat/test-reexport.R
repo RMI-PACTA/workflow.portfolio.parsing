@@ -35,7 +35,7 @@ test_that("re-exporting simple file works.", {
 
 test_that("re-exporting simple exported file yields same file.", {
   test_file <- system.file(
-    "extdata", "portfolios", "simple_output.csv",
+    "extdata", "portfolios", "output_simple.csv",
     package = "workflow.portfolio.parsing"
   )
   filehash <- digest::digest(
