@@ -1,2 +1,2 @@
-Investor.Name,ISIN,MarketValue,Currency
+investor_name,isin,market_value,currency
 Simple Investor,GB0007980591,10000,USD

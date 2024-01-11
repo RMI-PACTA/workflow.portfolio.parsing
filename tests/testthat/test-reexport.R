@@ -198,7 +198,7 @@ test_that("re-exporting robust against column order - all columns.", {
 
 test_that("re-exporting multiportfolio file with all columns works", {
   test_file <- system.file(
-    "extdata", "portfolios", "multi_simple_all-columns.csv",
+    "extdata", "portfolios", "multi_simple_all-columns_portfolioname.csv",
     package = "workflow.portfolio.parsing"
   )
   filehash <- digest::digest(

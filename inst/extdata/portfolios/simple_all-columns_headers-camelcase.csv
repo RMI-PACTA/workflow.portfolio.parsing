@@ -1,2 +1,2 @@
-investor_name,portfolio_name,isin,market_value,currency
+investorName,portfolioName,isin,marketValue,currency
 Simple Investor,Simple Portfolio,GB0007980591,10000,USD
