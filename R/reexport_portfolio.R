@@ -27,6 +27,20 @@ reexport_portfolio <- function(
   input_filename <- basename(input_filepath)
   input_entries <- nrow(portfolio_data)
 
+  # read_portfolio_csv retruns NA if it cannot process a portfolio
+  if (!inherits(portfolio_data, "data.frame")) {
+    logger::log_warn("Cannot import file: ", input_filepath)
+    warning("No portfolio data detected in file.")
+    return(
+      list(
+        input_filename = input_filename,
+        input_digest = input_digest,
+        # TODO: provide mechanism for better messages
+        error = "Cannot import portfolio file. Please see documentation."
+      )
+    )
+  }
+
   group_cols_poss <- c("portfolio_name", "investor_name")
   group_cols <- group_cols_poss[group_cols_poss %in% names(portfolio_data)]
 
@@ -35,7 +49,7 @@ reexport_portfolio <- function(
     dplyr::pick(dplyr::all_of(group_cols))
   )
   subportfolios_count <- nrow(dplyr::group_keys(grouped_portfolios))
-    logger::log_warn(subportfolios_count, " portfolios detected in file.")
+  logger::log_trace(subportfolios_count, " portfolios detected in file.")
   if (length(group_cols) > 0) {
     logger::log_trace("Portfolio data grouped by ", length(group_cols), " cols")
     logger::log_trace(paste(group_cols, collapse = ", "))

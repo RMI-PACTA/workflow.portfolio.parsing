@@ -234,7 +234,7 @@ simple_portfolio_all_columns %>%
   mutate(foo = "bar") %>%
   select(-investor_name, -portfolio_name) %>%
   write.csv(
-    file = "simple_all-columns_extra_columns.csv",
+    file = "simple_extra_columns.csv",
     row.names = FALSE,
     quote = FALSE
   )

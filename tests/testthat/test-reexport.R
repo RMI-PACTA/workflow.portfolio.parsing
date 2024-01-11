@@ -220,6 +220,27 @@ test_that("re-exporting robust against column order - all columns.", {
   )
 })
 
+test_that("re-exporting empty file fails.", {
+  test_file <- system.file(
+    "extdata", "portfolios", "simple_all-columns_empty.csv",
+    package = "workflow.portfolio.parsing"
+  )
+  filehash <- digest::digest(
+    object = test_file,
+    file = TRUE,
+    algo = "md5"
+  )
+  metadata <- reexport_portfolio(
+    input_filepath = test_file,
+    output_directory = test_dir
+  )
+  expect_reexport_failure(
+    metadata = metadata,
+    input_filename = basename(test_file),
+    input_digest = filehash
+  )
+})
+
 test_that("re-exporting multiportfolio file with all columns works", {
   test_file <- system.file(
     "extdata", "portfolios", "multi_simple_all-columns_portfolioname.csv",

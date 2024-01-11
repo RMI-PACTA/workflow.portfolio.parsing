@@ -1,2 +1,2 @@
-isin,market_value,currency,foo
-GB0007980591,10000,USD,bar
+investor_name,portfolio_name,isin,market_value,currency,foo
+Simple Investor,Simple Portfolio,GB0007980591,10000,USD,bar

@@ -181,3 +181,18 @@ expect_simple_reexport <- function(
     dplyr::arrange(groups, !!!rlang::syms(colnames(groups)))
   )
 }
+
+expect_reexport_failure <- function(
+  metadata,
+  input_filename,
+  input_digest
+) {
+  testthat::expect_mapequal(
+    metadata,
+    list(
+      input_filename = basename(input_filename),
+      input_digest = input_digest,
+      error = "Cannot import portfolio file. Please see documentation."
+    )
+  )
+}
