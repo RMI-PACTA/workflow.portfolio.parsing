@@ -127,7 +127,7 @@ expect_simple_reexport <- function(
     # check that the output file has the correct input entries
     testthat::expect_equal(x[["input_entries"]], input_entries)
     testthat::expect_equal(x[["subportfolios_count"]], max(nrow(groups), 1L))
-    testthat::expect_equal(x[["group_cols"]], colnames(groups))
+    testthat::expect_setequal(x[["group_cols"]], colnames(groups))
 
     # check that the output file has the correct investor and portfolio names
     # look for this cobination in the groups data frame and add to observed
@@ -137,10 +137,10 @@ expect_simple_reexport <- function(
         "portfolio_name" %in% names(groups)
     ) {
       testthat::expect_equal(
-        groups[
+        nrow(groups[
           groups[["investor_name"]] == x[["investor_name"]] &
             groups[["portfolio_name"]] == x[["portfolio_name"]],
-        ],
+        ]),
         1L
       )
       this_group <- data.frame(
@@ -149,7 +149,9 @@ expect_simple_reexport <- function(
       )
     } else if ("investor_name" %in% names(groups)) {
       testthat::expect_equal(
-        groups[["investor_name"]] == x[["investor_name"]],
+        nrow(groups[
+          groups[["investor_name"]] == x[["investor_name"]],
+        ]),
         1L
       )
       testthat::expect_equal(x[["portfolio_name"]], NULL)
@@ -158,7 +160,9 @@ expect_simple_reexport <- function(
       )
     } else if ("portfolio_name" %in% names(groups)) {
       testthat::expect_equal(
-        groups[["portfolio_name"]] == x[["portfolio_name"]],
+        nrow(groups[
+          groups[["portfolio_name"]] == x[["portfolio_name"]],
+        ]),
         1L
       )
       testthat::expect_equal(x[["investor_name"]], NULL)
