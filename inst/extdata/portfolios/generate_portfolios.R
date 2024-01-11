@@ -144,12 +144,27 @@ logger::log_info("Writing test file with padded headers.")
 simple_portfolio_all_columns %>%
   change_colnames(
     colnames = c(
+      " Investor.Name ", " Portfolio.Name ", " ISIN ",
+      " MarketValue ", " Currency "
+    )
+  ) %>%
+  write.csv(
+    file = "simple_all-columns_headers-padded.csv",
+    row.names = FALSE,
+    quote = FALSE
+  )
+
+# double space padded
+logger::log_info("Writing test file with double padded headers.")
+simple_portfolio_all_columns %>%
+  change_colnames(
+    colnames = c(
       "  Investor.Name  ", "  Portfolio.Name  ", "  ISIN  ",
       "  MarketValue  ", "  Currency  "
     )
   ) %>%
   write.csv(
-    file = "simple_all-columns_headers-padded.csv",
+    file = "simple_all-columns_headers-doublepadded.csv",
     row.names = FALSE,
     quote = FALSE
   )
@@ -174,7 +189,7 @@ logger::log_info("Writing test file with mixed format headers.")
 simple_portfolio_all_columns %>%
   change_colnames(
     colnames = c(
-      "INVESTOR.NAME", "PortfolioName", "isin", "market_value", "  Currency"
+      "INVESTOR.NAME", "PortfolioName", "isin", "market_value", " Currency"
     )
   ) %>%
   write.csv(
