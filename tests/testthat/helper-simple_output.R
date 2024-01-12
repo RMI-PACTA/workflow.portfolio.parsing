@@ -1,7 +1,6 @@
 simple_portfolio_hash <- digest::digest(
-  object = system.file(
-    "extdata", "portfolios", "output_simple.csv",
-    package = "workflow.portfolio.parsing"
+  object = testthat::test_path(
+    "testdata", "portfolios", "output_simple.csv"
   ),
   file = TRUE,
   algo = "md5"
