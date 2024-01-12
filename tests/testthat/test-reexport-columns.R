@@ -21,7 +21,7 @@ files_to_test <- c(
   "simple_missing-isin.csv",
   "simple_missing-marketvalue.csv",
   "simple_portfolioname.csv"
-  )
+)
 
 for (filename in files_to_test) {
   test_that(paste("re-exporting fails with missing columns -", filename), {

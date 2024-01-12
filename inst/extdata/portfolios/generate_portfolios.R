@@ -55,6 +55,27 @@ simple_portfolio_all_columns %>%
     quote = FALSE
   )
 
+logger::log_info("Writing test file with no headers.")
+simple_portfolio_all_columns %>%
+  write.table(
+    file = "simple_all-columns_headers-none.csv",
+    row.names = FALSE,
+    col.names = FALSE,
+    sep = ",",
+    quote = FALSE
+  )
+
+logger::log_info("Writing test file with no headers.")
+simple_portfolio_all_columns %>%
+  select(-investor_name, -portfolio_name) %>%
+  write.table(
+    file = "simple_headers-none.csv",
+    row.names = FALSE,
+    col.names = FALSE,
+    sep = ",",
+    quote = FALSE
+  )
+
 # Names as in Mock Portfolio on CTM (mixed dots and camelCase)
 logger::log_info("Writing test file with headers in demo format.")
 simple_portfolio_all_columns %>%
@@ -310,6 +331,10 @@ simple_portfolio_all_columns %>%
 #### TODO: Playing with missing values
 #### TODO: Playing with invalid values
 #### TODO: Playing with column types
+#### TODO: Playing with Excel exports (BOMs)
+#### TODO: Playing with EOL markers (\r\n, \r, \n)
+#### TODO: Playing with NA strings (NA, N/A, NULL, "", -, /, etc.)
+#### TODO: Playing with rownames (export from R write.csv default)
 
 
 #### TODO: Playing with multiple portfolios in a file

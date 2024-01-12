@@ -8,7 +8,7 @@ export_portfolio <- function(
   logger::log_trace("cleaning and rearranging data prior to export")
   output_cols <- c("isin", "market_value", "currency")
   extra_cols <- setdiff(colnames(portfolio_data), output_cols)
-  if (length(extra_cols)){
+  if (length(extra_cols)) {
     logger::log_warn(
       "Extra columns detected in portfolio data: ",
       extra_cols,
@@ -17,7 +17,7 @@ export_portfolio <- function(
     warning("Extra columns detected in portfolio data. Discarding.")
   }
   missing_cols <- setdiff(output_cols, colnames(portfolio_data))
-  if (length(missing_cols)){
+  if (length(missing_cols)) {
     logger::log_warn(
       "Missing columns detected in portfolio data: ",
       missing_cols,
@@ -65,7 +65,7 @@ export_portfolio <- function(
       output_digest = output_digest,
       output_filename = output_filename,
       output_rows = output_rows
-      ),
+    ),
     as.list(group_data)
   )
 

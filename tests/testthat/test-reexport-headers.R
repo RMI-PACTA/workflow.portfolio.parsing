@@ -18,12 +18,14 @@ files_to_test <- c(
   "simple_all-columns_headers-dot.csv",
   # "simple_all-columns_headers-doublepadded.csv", #TODO: enable this test
   "simple_all-columns_headers-mixed.csv",
+  "simple_all-columns_headers-none.csv",
   "simple_all-columns_headers-nosep-lowercase.csv",
   "simple_all-columns_headers-nosep-uppercase.csv",
   "simple_all-columns_headers-padded.csv",
   "simple_all-columns_headers-quoted.csv",
   "simple_all-columns_headers-space.csv",
-  "simple_all-columns_headers-underscore.csv"
+  "simple_all-columns_headers-underscore.csv",
+  "simple_headers-none.csv"
 )
 
 for (filename in files_to_test) {
