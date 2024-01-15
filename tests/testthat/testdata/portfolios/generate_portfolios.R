@@ -1,3 +1,6 @@
+# Script to be run in-place (where the R file is found)
+# Generates test files for the workflow.portfolio.parsing package
+
 library(dplyr)
 
 logger::log_info("Loading test data.")
@@ -47,10 +50,14 @@ change_colnames <- function(x, colnames) {
 
 #### Playing with headers
 
+if (!dir.exists("headers")) {
+  dir.create("headers")
+}
+
 logger::log_info("Writing test file with underscores in headers.")
 simple_portfolio_all_columns %>%
   write.csv(
-    file = "simple_all-columns_headers-underscore.csv",
+    file = file.path("headers", "simple_all-columns_headers-underscore.csv"),
     row.names = FALSE,
     quote = FALSE
   )
@@ -58,7 +65,7 @@ simple_portfolio_all_columns %>%
 logger::log_info("Writing test file with no headers.")
 simple_portfolio_all_columns %>%
   write.table(
-    file = "simple_all-columns_headers-none.csv",
+    file = file.path("headers", "simple_all-columns_headers-none.csv"),
     row.names = FALSE,
     col.names = FALSE,
     sep = ",",
@@ -69,7 +76,7 @@ logger::log_info("Writing test file with no headers.")
 simple_portfolio_all_columns %>%
   select(-investor_name, -portfolio_name) %>%
   write.table(
-    file = "simple_headers-none.csv",
+    file = file.path("headers", "simple_headers-none.csv"),
     row.names = FALSE,
     col.names = FALSE,
     sep = ",",
@@ -85,7 +92,7 @@ simple_portfolio_all_columns %>%
     )
   ) %>%
   write.csv(
-    file = "simple_all-columns_headers-demo.csv",
+    file = file.path("headers", "simple_all-columns_headers-demo.csv"),
     row.names = FALSE,
     quote = FALSE
   )
@@ -99,7 +106,7 @@ simple_portfolio_all_columns %>%
     )
   ) %>%
   write.csv(
-    file = "simple_all-columns_headers-dot.csv",
+    file = file.path("headers", "simple_all-columns_headers-dot.csv"),
     row.names = FALSE,
     quote = FALSE
   )
@@ -113,7 +120,7 @@ simple_portfolio_all_columns %>%
     )
   ) %>%
   write.csv(
-    file = "simple_all-columns_headers-space.csv",
+    file = file.path("headers", "simple_all-columns_headers-space.csv"),
     row.names = FALSE,
     quote = FALSE
   )
@@ -127,7 +134,7 @@ simple_portfolio_all_columns %>%
     )
   ) %>%
   write.csv(
-    file = "simple_all-columns_headers-camelcase.csv",
+    file = file.path("headers", "simple_all-columns_headers-camelcase.csv"),
     row.names = FALSE,
     quote = FALSE
   )
@@ -141,7 +148,7 @@ simple_portfolio_all_columns %>%
     )
   ) %>%
   write.csv(
-    file = "simple_all-columns_headers-nosep-lowercase.csv",
+    file = file.path("headers", "simple_all-columns_headers-nosep-lowercase.csv"),
     row.names = FALSE,
     quote = FALSE
   )
@@ -155,7 +162,7 @@ simple_portfolio_all_columns %>%
     )
   ) %>%
   write.csv(
-    file = "simple_all-columns_headers-nosep-uppercase.csv",
+    file = file.path("headers", "simple_all-columns_headers-nosep-uppercase.csv"),
     row.names = FALSE,
     quote = FALSE
   )
@@ -170,7 +177,7 @@ simple_portfolio_all_columns %>%
     )
   ) %>%
   write.csv(
-    file = "simple_all-columns_headers-padded.csv",
+    file = file.path("headers", "simple_all-columns_headers-padded.csv"),
     row.names = FALSE,
     quote = FALSE
   )
@@ -185,7 +192,7 @@ simple_portfolio_all_columns %>%
     )
   ) %>%
   write.csv(
-    file = "simple_all-columns_headers-doublepadded.csv",
+    file = file.path("headers", "simple_all-columns_headers-doublepadded.csv"),
     row.names = FALSE,
     quote = FALSE
   )
@@ -200,7 +207,7 @@ simple_portfolio_all_columns %>%
     )
   ) %>%
   write.csv(
-    file = "simple_all-columns_headers-quoted.csv",
+    file = file.path("headers", "simple_all-columns_headers-quoted.csv"),
     row.names = FALSE,
     quote = FALSE
   )
@@ -214,18 +221,23 @@ simple_portfolio_all_columns %>%
     )
   ) %>%
   write.csv(
-    file = "simple_all-columns_headers-mixed.csv",
+    file = file.path("headers", "simple_all-columns_headers-mixed.csv"),
     row.names = FALSE,
     quote = FALSE
   )
 
 
 #### Playing with column order
+
+if (!dir.exists("columns")) {
+  dir.create("columns")
+}
+
 logger::log_info("Writing test file with reordered columns.")
 simple_portfolio_all_columns %>%
   select(rev(everything())) %>%
   write.csv(
-    file = "simple_all-columns_reordered.csv",
+    file = file.path("columns", "simple_all-columns_reordered.csv"),
     row.names = FALSE,
     quote = FALSE
   )
@@ -235,7 +247,7 @@ simple_portfolio_all_columns %>%
   select(rev(everything())) %>%
   select(-investor_name, -portfolio_name) %>%
   write.csv(
-    file = "simple_reordered.csv",
+    file = file.path("columns", "simple_reordered.csv"),
     row.names = FALSE,
     quote = FALSE
   )
@@ -245,7 +257,7 @@ logger::log_info("Writing test file with extra columns.")
 simple_portfolio_all_columns %>%
   mutate(foo = "bar") %>%
   write.csv(
-    file = "simple_all-columns_extra_columns.csv",
+    file = file.path("columns", "simple_all-columns_extra_columns.csv"),
     row.names = FALSE,
     quote = FALSE
   )
@@ -255,7 +267,7 @@ simple_portfolio_all_columns %>%
   mutate(foo = "bar") %>%
   select(-investor_name, -portfolio_name) %>%
   write.csv(
-    file = "simple_extra_columns.csv",
+    file = file.path("columns", "simple_extra_columns.csv"),
     row.names = FALSE,
     quote = FALSE
   )
@@ -265,7 +277,7 @@ logger::log_info("Writing test file with missing column: investor_name.")
 simple_portfolio_all_columns %>%
   select(-investor_name) %>%
   write.csv(
-    file = "simple_portfolioname.csv",
+    file = file.path("columns", "simple_portfolioname.csv"),
     row.names = FALSE,
     quote = FALSE
   )
@@ -274,7 +286,7 @@ logger::log_info("Writing test file with missing column: portfolio_name.")
 simple_portfolio_all_columns %>%
   select(-portfolio_name) %>%
   write.csv(
-    file = "simple_investorname.csv",
+    file = file.path("columns", "simple_investorname.csv"),
     row.names = FALSE,
     quote = FALSE
   )
@@ -283,7 +295,7 @@ logger::log_info("Writing test file with missing column: currency.")
 simple_portfolio_all_columns %>%
   select(-currency) %>%
   write.csv(
-    file = "simple_missing-currency.csv",
+    file = file.path("columns", "simple_missing-currency.csv"),
     row.names = FALSE,
     quote = FALSE
   )
@@ -292,7 +304,7 @@ logger::log_info("Writing test file with missing column: market_value.")
 simple_portfolio_all_columns %>%
   select(-market_value) %>%
   write.csv(
-    file = "simple_missing-marketvalue.csv",
+    file = file.path("columns", "simple_missing-marketvalue.csv"),
     row.names = FALSE,
     quote = FALSE
   )
@@ -301,7 +313,7 @@ logger::log_info("Writing test file with missing column: isin.")
 simple_portfolio_all_columns %>%
   select(-isin) %>%
   write.csv(
-    file = "simple_missing-isin.csv",
+    file = file.path("columns", "simple_missing-isin.csv"),
     row.names = FALSE,
     quote = FALSE
   )
