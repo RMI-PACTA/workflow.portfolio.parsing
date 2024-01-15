@@ -5,10 +5,7 @@ library(dplyr)
 
 logger::log_info("Loading test data.")
 simple_portfolio <- read.csv(
-  file = system.file(
-    "extdata", "portfolios", "output_simple.csv",
-    package = "workflow.portfolio.parsing"
-  ),
+  file = "output_simple.csv",
   stringsAsFactors = FALSE
 )
 
