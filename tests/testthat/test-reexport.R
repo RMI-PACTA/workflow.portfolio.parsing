@@ -32,7 +32,7 @@ test_that("re-exporting simple file works.", {
     groups = empty_groups,
     input_digest = filehash,
     input_filename = basename(test_file),
-    input_entries = 1
+    input_entries = 1L
   )
 })
 
@@ -55,7 +55,7 @@ test_that("re-exporting simple exported file yields same file.", {
     groups = empty_groups,
     input_digest = filehash,
     input_filename = basename(test_file),
-    input_entries = 1
+    input_entries = 1L
   )
 })
 
@@ -78,7 +78,7 @@ test_that("re-exporting simple file with all columns works", {
     groups = simple_groups,
     input_digest = filehash,
     input_filename = basename(test_file),
-    input_entries = 1
+    input_entries = 1L
   )
 })
 
@@ -127,6 +127,6 @@ test_that("re-exporting multiportfolio file with all columns works", {
     groups = groups,
     input_digest = filehash,
     input_filename = basename(test_file),
-    input_entries = 2
+    input_entries = 2L
   )
 })

@@ -38,7 +38,7 @@ test_that("Processing a directory with a single file works.", {
     groups = empty_groups,
     input_digest = filehash,
     input_filename = "foo.csv",
-    input_entries = 1
+    input_entries = 1L
   )
 })
 
@@ -75,7 +75,7 @@ test_that("Processing a directory with a multiple files works.", {
     groups = empty_groups,
     input_digest = filehash,
     input_filename = "foo1.csv",
-    input_entries = 1
+    input_entries = 1L
   )
   expect_simple_reexport(
     output_dir = output_dir,
@@ -83,6 +83,6 @@ test_that("Processing a directory with a multiple files works.", {
     groups = empty_groups,
     input_digest = filehash,
     input_filename = "foo2.csv",
-    input_entries = 1
+    input_entries = 1L
   )
 })

@@ -48,7 +48,7 @@ for (filename in files_to_test) {
       groups = simple_groups,
       input_digest = filehash,
       input_filename = basename(test_file),
-      input_entries = 1
+      input_entries = 1L
     )
   })
 }
