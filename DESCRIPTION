@@ -1,14 +1,38 @@
 Package: workflow.portfolio.parsing
-Title: reads, cleans, and reexports portfolios for PACTA
+Title: Reads, cleans, and reexports portfolios for PACTA
 Version: 0.0.0.9000
 Authors@R: 
-      person(given = "Alex",
-             family = "Axthelm",
-             role = c("aut", "ctr"),
-             email = "aaxthelm@rmi.org",
-             comment = c(ORCID = "0000-0001-8579-8565")),
-Description: What the package does (one paragraph).
+    c(
+      person(
+        given = "Alex",
+        family = "Axthelm",
+        role = c("aut", "ctr", "cre"),
+        email = "aaxthelm@rmi.org",
+        comment = c(ORCID = "0000-0001-8579-8565")
+      ),
+      person(
+        given = "RMI",
+        role = c("cph", "fnd"),
+        email = "PACTA4investors@rmi.org"
+      )
+    )
+Description: Processes and sanitizes portfolios for use with PACTA. Can accept
+    a directory of portfolio CSVs, and re-export them, separated into logical
+    portfolios, along with a JSON file providing descriptive metadata about the
+    exported files.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
+Imports: 
+    digest,
+    dplyr,
+    logger,
+    pacta.portfolio.import,
+    uuid
+Remotes:
+    RMI-PACTA/pacta.portfolio.import
+Suggests: 
+    testthat (>= 3.0.0),
+    withr
+Config/testthat/edition: 3
