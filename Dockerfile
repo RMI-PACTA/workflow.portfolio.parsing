@@ -31,8 +31,7 @@ RUN Rscript -e "\
 # copy in everything from this repo
 COPY . /workflow.portfolio.parser
 
-RUN Rscript -e "pak::pak('local::/workflow.portfolio.parser')" \
-  && Rscript -e "remove.packages('pak')"
+RUN Rscript -e "pak::pak('local::/workflow.portfolio.parser')"
 
 # set default run behavior
 CMD ["Rscript", "-e", "logger::log_threshold(Sys.getenv('LOG_LEVEL', 'INFO'));workflow.portfolio.parsing::process_directory('/mnt/input')"]
