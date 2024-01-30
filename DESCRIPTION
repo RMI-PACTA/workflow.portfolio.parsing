@@ -27,6 +27,7 @@ RoxygenNote: 7.3.1
 Imports: 
     digest,
     dplyr,
+    jsonvalidate,
     logger,
     pacta.portfolio.import,
     uuid

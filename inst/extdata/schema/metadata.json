@@ -1,0 +1,88 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "portfolioMetadata",
+  "description": "Portfolio reexported form workflow.portfolio.parsing",
+  "type": "object",
+  "properties": {
+    "input_filename": {
+      "description": "Filename of the input file.",
+      "type": "string"
+    },
+    "input_digest": {
+      "description": "md5 filehash of input file.",
+      "type": "string",
+      "pattern": "^[a-f0-9]{32}$"
+    },
+    "input_entries": {
+      "description": "Number of entries in input file.",
+      "type": "integer",
+      "minimum": 0
+    },
+    "subportfolios_count": {
+      "description": "Number of subportfolios in portfolio file.",
+      "type": "integer"
+    },
+    "group_cols": {
+      "description": "Columns used to group portfolio.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "portfolios": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "output_filename": {
+            "description": "Filename of the output file. Format: <uuid>.csv",
+            "type": "string",
+            "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[89ab][a-f0-9]{3}-[a-f0-9]{12}.csv$"
+          },
+          "output_digest": {
+            "description": "md5 filehash of output file.",
+            "type": "string",
+            "pattern": "^[a-f0-9]{32}$"
+          },
+          "output_rows": {
+            "description": "Number of rows in output file.",
+            "type": "integer",
+            "minimum": 0
+          },
+          "portfolio_name": {
+            "description": "Name of portfolio defined in portfolio file.",
+            "type": "string"
+          },
+          "investor_name": {
+            "description": "Name of investor defined in portfolio file.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "output_filename",
+          "output_digest",
+          "output_rows"
+        ]
+      }
+    },
+    "errors": {
+      "description": "List of errors encountered during processing.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "warnings": {
+      "description": "List of warnings encountered during processing.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "input_filename",
+    "input_digest",
+    "portfolios"
+  ]
+}
