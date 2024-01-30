@@ -214,7 +214,9 @@ expect_reexport_failure <- function(
     list(
       input_filename = basename(input_filename),
       input_digest = input_digest,
-      error = "Cannot import portfolio file. Please see documentation."
+      errors = list(
+        "Cannot import portfolio file. Please see documentation."
+      )
     )
   )
 }

@@ -27,7 +27,6 @@ files_to_test <- c(
 
 for (filename in files_to_test) {
   test_that(paste("re-exporting fails with missing columns -", filename), {
-skip()
     test_file <- testthat::test_path(
       "testdata", "portfolios", "columns", filename
     )
