@@ -82,26 +82,26 @@ test_that("re-exporting simple file with all columns works", {
   )
 })
 
-# TODO: Enable this test
-# test_that("re-exporting empty file fails.", {
-#   test_file <- testthat::test_path(
-#     "testdata", "portfolios", "simple_all-columns_empty.csv"
-#   )
-#   filehash <- digest::digest(
-#     object = test_file,
-#     file = TRUE,
-#     algo = "md5"
-#   )
-#   metadata <- reexport_portfolio(
-#     input_filepath = test_file,
-#     output_directory = test_dir
-#   )
-#   expect_reexport_failure(
-#     metadata = metadata,
-#     input_filename = basename(test_file),
-#     input_digest = filehash
-#   )
-# })
+test_that("re-exporting empty file fails.", {
+  skip() #TODO: enable this test
+  test_file <- testthat::test_path(
+    "testdata", "portfolios", "simple_all-columns_empty.csv"
+  )
+  filehash <- digest::digest(
+    object = test_file,
+    file = TRUE,
+    algo = "md5"
+  )
+  metadata <- reexport_portfolio(
+    input_filepath = test_file,
+    output_directory = test_dir
+  )
+  expect_reexport_failure(
+    metadata = metadata,
+    input_filename = basename(test_file),
+    input_digest = filehash
+  )
+})
 
 test_that("re-exporting multiportfolio file with all columns works", {
   test_file <- testthat::test_path(

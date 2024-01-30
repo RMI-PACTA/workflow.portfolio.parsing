@@ -145,7 +145,9 @@ simple_portfolio_all_columns %>%
     )
   ) %>%
   write.csv(
-    file = file.path("headers", "simple_all-columns_headers-nosep-lowercase.csv"),
+    file = file.path(
+      "headers", "simple_all-columns_headers-nosep-lowercase.csv"
+    ),
     row.names = FALSE,
     quote = FALSE
   )
@@ -159,7 +161,9 @@ simple_portfolio_all_columns %>%
     )
   ) %>%
   write.csv(
-    file = file.path("headers", "simple_all-columns_headers-nosep-uppercase.csv"),
+    file = file.path(
+      "headers", "simple_all-columns_headers-nosep-uppercase.csv"
+    ),
     row.names = FALSE,
     quote = FALSE
   )

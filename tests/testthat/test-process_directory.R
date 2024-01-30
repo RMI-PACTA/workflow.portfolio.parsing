@@ -86,4 +86,3 @@ test_that("Processing a directory with a multiple files works.", {
     input_entries = 1
   )
 })
-
