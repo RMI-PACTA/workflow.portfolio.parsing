@@ -29,13 +29,14 @@ reexport_portfolio <- function(
 
   file_summary <- list(
     input_filename = input_filename,
-    input_digest = input_digest,
-    input_entries = input_entries
+    input_digest = input_digest
   )
 
   # read_portfolio_csv retruns NA if it cannot process a portfolio
   if (inherits(portfolio_data, "data.frame")) {
     logger::log_trace("Portfolio data detected in file.")
+
+    file_summary[["input_entries"]] <- input_entries
 
     group_cols_possible <- c("portfolio_name", "investor_name")
     group_cols <- group_cols_possible[
