@@ -71,17 +71,19 @@ reexport_portfolio <- function(
     logger::log_trace("Adding file information to portfolio metadata.")
     file_summary[["portfolios"]] <- portfolio_summary
 
+    # No warnings or errors detected
+    file_summary[["warnings"]] <- NULL
+    file_summary[["errors"]] <- NULL
+
   } else { # no portfolio data detected
 
     logger::log_warn("Cannot import file: ", input_filepath)
     warning("No portfolio data detected in file.")
-    file_summary[["error"]] <- list(
+    file_summary[["errors"]] <- list(
       "Cannot import portfolio file. Please see documentation."
     )
     file_summary[["warnings"]] <- NULL
-    file_summary[["group_cols"]] <- NULL
-    file_summary[["subportfolios_count"]] <- NULL
-    file_sumary[["portfolios"]] <- NULL
+    file_summary[["portfolios"]] <- NULL
   }
 
   logger::log_info("Finished processing file: ", input_filepath)
