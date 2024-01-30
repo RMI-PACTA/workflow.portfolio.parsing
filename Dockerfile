@@ -12,6 +12,12 @@ LABEL org.opencontainers.image.base.name=""
 LABEL org.opencontainers.image.ref.name=""
 LABEL org.opencontainers.image.authors=""
 
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+      libicu-dev=70.* \
+    && chmod -R a+rwX /root \
+    && rm -rf /var/lib/apt/lists/*
+
 # set frozen CRAN repo
 ARG CRAN_REPO="https://packagemanager.posit.co/cran/__linux__/jammy/2023-10-30"
 ARG R_HOME="/usr/local/lib/R"
