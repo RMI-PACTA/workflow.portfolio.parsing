@@ -1,5 +1,5 @@
 Package: workflow.portfolio.parsing
-Title: reads, cleans, and reexports portfolios for PACTA
+Title: Reads, cleans, and reexports portfolios for PACTA
 Version: 0.0.0.9000
 Authors@R: 
     c(
@@ -16,7 +16,10 @@ Authors@R:
         email = "PACTA4investors@rmi.org"
       )
     )
-Description: What the package does (one paragraph).
+Description: Processes and sanitizes portfolios for use with PACTA. Can accept
+a directory of portfolio CSVs, and re-export them, separated into logical
+portfolios, along with a JSON file providing descriptive metadata about the
+exported files.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
