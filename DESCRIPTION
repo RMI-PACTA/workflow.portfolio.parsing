@@ -17,9 +17,9 @@ Authors@R:
       )
     )
 Description: Processes and sanitizes portfolios for use with PACTA. Can accept
-a directory of portfolio CSVs, and re-export them, separated into logical
-portfolios, along with a JSON file providing descriptive metadata about the
-exported files.
+    a directory of portfolio CSVs, and re-export them, separated into logical
+    portfolios, along with a JSON file providing descriptive metadata about the
+    exported files.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
