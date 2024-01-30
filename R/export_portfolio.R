@@ -48,6 +48,7 @@ export_portfolio <- function(
     x = portfolio_data,
     file = output_filepath,
     row.names = FALSE,
+    na = "",
     fileEncoding = "UTF-8"
   )
   logger::log_debug("Portfolio data written to file: ", output_filepath)

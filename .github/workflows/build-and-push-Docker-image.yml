@@ -35,7 +35,7 @@ jobs:
           echo "full-image-name=$full_image_name" >> "$GITHUB_OUTPUT"
           echo "$full_image_name" > full-image-name
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: full-image-name
           path: .
