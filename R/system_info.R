@@ -3,11 +3,13 @@ get_system_info <- function() {
   package <- getPackageName()
   version <- as.character(packageVersion(package))
   logger::log_trace("Package: ", package, " version: ", version)
-  deps <- strsplit(
-    x = packageDescription(package)[["Imports"]],
-    split = ",\n",
-    fixed = TRUE
-  )[[1L]]
+  deps <- trimws(
+    strsplit(
+      x = packageDescription(package)[["Imports"]],
+      split = ",",
+      fixed = TRUE
+    )[[1L]]
+  )
   deps_version <- as.list(
     lapply(
       X = deps,
