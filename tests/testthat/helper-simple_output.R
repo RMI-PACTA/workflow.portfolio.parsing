@@ -89,28 +89,58 @@ expect_simple_reexport <- function(
   input_entries
 ) {
   # check length of metadata
-  testthat::expect_equal(length(metadata), input_entries)
+  testthat::expect_setequal(
+    object = names(metadata),
+    expected = c(
+      "group_cols",
+      "input_digest",
+      "input_entries",
+      "input_filename",
+      "portfolios",
+      "subportfolios_count"
+    )
+  )
+
+  testthat::expect_null(metadata[["errors"]])
+  testthat::expect_setequal(metadata[["group_cols"]], colnames(groups))
+  testthat::expect_identical(metadata[["input_digest"]], input_digest)
+  testthat::expect_identical(metadata[["input_entries"]], input_entries)
+  testthat::expect_identical(metadata[["input_filename"]], input_filename)
+
+  testthat::expect_type(metadata[["portfolios"]], "list")
+  testthat::expect_length(
+    object = metadata[["portfolios"]],
+    n = metadata[["subportfolios_count"]]
+  )
+
+  testthat::expect_identical(metadata[["subportfolios_count"]], max(nrow(groups), 1L))
+
+  testthat::expect_null(metadata[["warnings"]])
+  testthat::expect_null(metadata[["errors"]])
 
   observed_groups <- groups[0, ]
   # for each entry in the metadata
-  for (x in metadata) {
+  for (x in metadata[["portfolios"]]) {
     # check that the output file exists
     output_filepath <- file.path(
       output_dir,
       x[["output_filename"]]
     )
     file_content_rows <- expect_simple_portfolio_file(output_filepath)
-    testthat::expect_equal(
+    testthat::expect_identical(
       x[["output_rows"]],
       file_content_rows
     )
 
     required_fields <- c(
-      "output_filename", "output_rows", "output_digest",
-      "input_digest", "input_filename", "input_entries",
-      "subportfolios_count", "group_cols"
+      "output_filename",
+      "output_rows",
+      "output_digest"
     )
-    optional_fields <- c("investor_name", "portfolio_name")
+    optional_fields <- c(
+      "investor_name",
+      "portfolio_name"
+    )
     testthat::expect_contains(names(x), required_fields)
     testthat::expect_in(
       names(x),
@@ -118,15 +148,7 @@ expect_simple_reexport <- function(
     )
 
     # check that the output file has the correct number of rows
-    testthat::expect_equal(x[["output_rows"]], 1L)
-    # check that the output file has the correct input digest
-    testthat::expect_equal(x[["input_digest"]], input_digest)
-    # check that the output file has the correct input filename
-    testthat::expect_equal(x[["input_filename"]], input_filename)
-    # check that the output file has the correct input entries
-    testthat::expect_equal(x[["input_entries"]], input_entries)
-    testthat::expect_equal(x[["subportfolios_count"]], max(nrow(groups), 1L))
-    testthat::expect_setequal(x[["group_cols"]], colnames(groups))
+    testthat::expect_identical(x[["output_rows"]], 1L)
 
     # check that the output file has the correct investor and portfolio names
     # look for this cobination in the groups data frame and add to observed
@@ -175,6 +197,7 @@ expect_simple_reexport <- function(
     }
     observed_groups <- dplyr::bind_rows(observed_groups, this_group)
   }
+  # Test that all observed groups are the expected groups
   testthat::expect_equal(
     dplyr::arrange(observed_groups, !!!rlang::syms(colnames(groups))),
     dplyr::arrange(groups, !!!rlang::syms(colnames(groups)))
@@ -191,7 +214,9 @@ expect_reexport_failure <- function(
     list(
       input_filename = basename(input_filename),
       input_digest = input_digest,
-      error = "Cannot import portfolio file. Please see documentation."
+      errors = list(
+        "Cannot import portfolio file. Please see documentation."
+      )
     )
   )
 }
