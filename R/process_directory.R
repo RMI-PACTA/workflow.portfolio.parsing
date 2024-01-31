@@ -24,20 +24,7 @@ process_directory <- function(
   logger::log_info("Preparing metadata JSON file.")
   if (validate) {
     logger::log_info("Validating output.")
-    sch <- jsonvalidate::json_schema[["new"]](
-      schema = schema_file,
-      strict = TRUE,
-      engine = "ajv"
-    )
-    summaries_json <- jsonlite::prettify(
-      sch[["serialise"]](all_summaries)
-    )
-    json_is_valid <- sch[["validate"]](summaries_json, verbose = TRUE)
-    if (json_is_valid) {
-      logger::log_debug("JSON is valid.")
-    } else {
-      logger::log_error("JSON is not valid.")
-    }
+    summaries_json <- schema_serialize(all_summaries)
   } else {
     logger::log_warn("Skipping JSON validation.")
     summaries_json <- jsonlite::toJSON(
