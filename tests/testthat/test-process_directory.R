@@ -13,7 +13,7 @@ json_validator <- jsonvalidate::json_schema[["new"]](
   schema = system.file(
     "extdata", "schema", "parsedPortfolio_0-1-0.json",
     package = "workflow.portfolio.parsing"
-    ),
+  ),
   strict = TRUE,
   engine = "ajv"
 )
@@ -43,7 +43,7 @@ test_that("Processing a directory with a single file works.", {
   )
   expect_simple_reexport(
     output_dir = output_dir,
-    metadata = metadata[[1]],
+    metadata = metadata[[1L]],
     groups = empty_groups,
     input_digest = filehash,
     input_filename = "foo.csv",
@@ -86,7 +86,7 @@ test_that("Processing a directory with a multiple files works.", {
   )
   expect_simple_reexport(
     output_dir = output_dir,
-    metadata = metadata[[1]],
+    metadata = metadata[[1L]],
     groups = empty_groups,
     input_digest = filehash,
     input_filename = "foo1.csv",
@@ -94,7 +94,7 @@ test_that("Processing a directory with a multiple files works.", {
   )
   expect_simple_reexport(
     output_dir = output_dir,
-    metadata = metadata[[2]],
+    metadata = metadata[[2L]],
     groups = empty_groups,
     input_digest = filehash,
     input_filename = "foo2.csv",
