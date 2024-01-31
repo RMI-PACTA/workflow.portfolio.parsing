@@ -113,7 +113,9 @@ expect_simple_reexport <- function(
     n = metadata[["subportfolios_count"]]
   )
 
-  testthat::expect_identical(metadata[["subportfolios_count"]], max(nrow(groups), 1L))
+  testthat::expect_identical(
+    metadata[["subportfolios_count"]], max(nrow(groups), 1L)
+  )
 
   testthat::expect_null(metadata[["warnings"]])
   testthat::expect_null(metadata[["errors"]])
