@@ -1,7 +1,7 @@
 schema_serialize <- function(
   object,
   schema_file = system.file(
-    "extdata", "schema", "metadata.json",
+    "extdata", "schema", "parsedPortfolio_0-1-0.json",
     package = "workflow.portfolio.parsing"
   ),
   reference = NULL

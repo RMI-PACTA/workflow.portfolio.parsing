@@ -11,7 +11,7 @@ simple_groups <- tibble::tribble(
 
 json_validator <- jsonvalidate::json_schema[["new"]](
   schema = system.file(
-    "extdata", "schema", "metadata.json",
+    "extdata", "schema", "parsedPortfolio_0-1-0.json",
     package = "workflow.portfolio.parsing"
     ),
   strict = TRUE,
