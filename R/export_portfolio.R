@@ -60,7 +60,7 @@ export_portfolio <- function(
     algo = "md5",
     serialize = FALSE
   )
-  logger::log_trace("Portfolio data digest: ", output_digest)
+  logger::log_trace("Portfolio data digest: ", output_md5)
 
   portfolio_metadata <- c(
     list(
