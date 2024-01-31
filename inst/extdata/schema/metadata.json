@@ -18,6 +18,49 @@
         "type": "string",
         "pattern": "^[a-f0-9]{32}$"
       },
+      "system_info": {
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "timestamp": {
+            "description": "Timestamp of when the file was processed.",
+            "type": "string",
+            "format": "date-time"
+          },
+          "package": {
+            "description": "Name of the package that processed the file.",
+            "type": "string"
+          },
+          "packageVersion": {
+            "description": "Version of the package that processed the file.",
+            "type": "string",
+            "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(\\.[0-9]+)?$"
+          },
+          "RVersion": {
+            "description": "Version of R that processed the file.",
+            "type": "string",
+            "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+          },
+          "dependencies": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "package": {
+                  "description": "Name of the package.",
+                  "type": "string"
+                },
+                "version": {
+                  "description": "Version of the package.",
+                  "type": "string",
+                  "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        }
+      },
       "input_entries": {
         "description": "Number of entries in input file.",
         "type": "integer",

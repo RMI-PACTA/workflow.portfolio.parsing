@@ -9,15 +9,17 @@ get_system_info <- function() {
     fixed = TRUE
   )[[1L]]
   deps_version <- as.list(
-    vapply(
+    lapply(
       X = deps,
       FUN = function(x) {
-        as.character(packageVersion(x))
-      },
-      FUN.VALUE = character(1L),
-      USE.NAMES = TRUE
+        list(
+          package = x,
+          version = as.character(packageVersion(x))
+        )
+      }
     )
   )
+
   return(
     list(
       timestamp = format(
