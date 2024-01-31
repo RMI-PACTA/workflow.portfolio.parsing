@@ -40,6 +40,7 @@ test_that("Processing a directory with a single file works.", {
     input_filename = "foo.csv",
     input_entries = 1L
   )
+  expect_true(file.exists(file.path(output_dir, "processed_portfolios.json")))
 })
 
 test_that("Processing a directory with a multiple files works.", {
@@ -85,4 +86,5 @@ test_that("Processing a directory with a multiple files works.", {
     input_filename = "foo2.csv",
     input_entries = 1L
   )
+  expect_true(file.exists(file.path(output_dir, "processed_portfolios.json")))
 })
