@@ -9,6 +9,15 @@ simple_groups <- tibble::tribble(
   "Simple Investor", "Simple Portfolio"
 )
 
+json_validator <- jsonvalidate::json_schema[["new"]](
+  schema = system.file(
+    "extdata", "schema", "metadata.json",
+    package = "workflow.portfolio.parsing"
+    ),
+  strict = TRUE,
+  engine = "ajv"
+)
+
 test_that("Processing a directory with a single file works.", {
   test_file <- testthat::test_path(
     "testdata", "portfolios", "simple.csv"
@@ -40,7 +49,12 @@ test_that("Processing a directory with a single file works.", {
     input_filename = "foo.csv",
     input_entries = 1L
   )
-  expect_true(file.exists(file.path(output_dir, "processed_portfolios.json")))
+  metadata_file <- file.path(output_dir, "processed_portfolios.json")
+  expect_true(file.exists(metadata_file))
+  expect_true(json_validator[["validate"]](
+    json =  metadata_file,
+    verbose = TRUE
+  ))
 })
 
 test_that("Processing a directory with a multiple files works.", {
@@ -86,5 +100,10 @@ test_that("Processing a directory with a multiple files works.", {
     input_filename = "foo2.csv",
     input_entries = 1L
   )
+  metadata_file <- file.path(output_dir, "processed_portfolios.json")
   expect_true(file.exists(file.path(output_dir, "processed_portfolios.json")))
+  expect_true(json_validator[["validate"]](
+    json =  metadata_file,
+    verbose = TRUE
+  ))
 })
