@@ -29,7 +29,8 @@
           },
           "package": {
             "description": "Name of the package that processed the file.",
-            "type": "string"
+            "type": "string",
+            "pattern": "^workflow\\.portfolio\\.parsing$"
           },
           "packageVersion": {
             "description": "Version of the package that processed the file.",
@@ -140,7 +141,7 @@
     "required": [
       "input_filename",
       "input_md5",
-      "portfolios"
+      "system_info"
     ]
   }
 }
