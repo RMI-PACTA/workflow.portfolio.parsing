@@ -64,11 +64,12 @@
       "input_entries": {
         "description": "Number of entries in input file.",
         "type": "integer",
-        "minimum": 0
+        "exclusiveMinimum": 0
       },
       "subportfolios_count": {
         "description": "Number of subportfolios in portfolio file.",
-        "type": "integer"
+        "type": "integer",
+        "exclusiveMinimum": 0
       },
       "group_cols": {
         "description": "Columns used to group portfolio.",
