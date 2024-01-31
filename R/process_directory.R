@@ -15,5 +15,5 @@ process_directory <- function(
     all_summaries <- c(all_summaries, list(portfolio_summary))
   }
   logger::log_info("Done processing directory.")
-  return(all_summaries)
+  return(invisible(all_summaries))
 }
