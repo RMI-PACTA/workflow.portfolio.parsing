@@ -18,4 +18,4 @@ name: R
 jobs:
   R-package:
     name: R Package Checks
-    uses: RMI-PACTA/Actions/.github/workflows/R.yml@main
+    uses: RMI-PACTA/actions/.github/workflows/R.yml@main
