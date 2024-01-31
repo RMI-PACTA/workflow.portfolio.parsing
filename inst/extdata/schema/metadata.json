@@ -2,12 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema",
   "title": "portfolioMetadata",
   "description": "Portfolio reexported form workflow.portfolio.parsing",
-  "metadata": {
-    "version": "0.1.0",
-    "lastUpdated": "2024-01-31",
-    "author": "Alex Axthelm",
-    "contact": "AAxthelm@rmi.org"
-  },
+  "$comment": "Created by Alex Axthelm, aaxthelm@rmi.org",
   "type": "array",
   "items": {
     "type": "object",
