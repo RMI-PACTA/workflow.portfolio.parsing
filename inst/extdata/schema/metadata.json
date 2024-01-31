@@ -1,7 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
-  "title": "portfolioMetadata",
-  "description": "Portfolio reexported form workflow.portfolio.parsing",
+  "$id": "pacta.rmi.org/schemas/parsedPortfolios.json",
+  "title": "parsedPortfolios",
+  "description": "Metadata about PACTA portfolio parsed and reexported from workflow.portfolio.parsing",
   "$comment": "Created by Alex Axthelm, aaxthelm@rmi.org",
   "type": "array",
   "items": {
