@@ -2,11 +2,7 @@
 process_directory <- function(
   input_directory = "/mnt/input",
   output_directory = "/mnt/output",
-  validate = TRUE,
-  schema_file = system.file(
-    "extdata", "schema", "metadata.json",
-    package = "workflow.portfolio.parsing"
-  )
+  validate = TRUE
 ) {
   # Get the list of files in the directory
   files <- list.files(input_directory, full.names = TRUE)

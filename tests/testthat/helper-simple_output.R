@@ -97,7 +97,8 @@ expect_simple_reexport <- function(
       "input_entries",
       "input_filename",
       "portfolios",
-      "subportfolios_count"
+      "subportfolios_count",
+      "system_info"
     )
   )
 
@@ -211,14 +212,22 @@ expect_reexport_failure <- function(
   input_filename,
   input_digest
 ) {
-  testthat::expect_mapequal(
-    metadata,
+  testthat::expect_setequal(
+    object = names(metadata),
+    expected = c(
+      "errors",
+      "input_digest",
+      "input_filename",
+      "system_info"
+    )
+  )
+  testthat::expect_identical(metadata[["input_digest"]], input_digest)
+  testthat::expect_identical(metadata[["input_filename"]], input_filename)
+  testthat::expect_type(metadata[["errors"]], "list")
+  testthat::expect_identical(
+    metadata[["errors"]],
     list(
-      input_filename = basename(input_filename),
-      input_digest = input_digest,
-      errors = list(
-        "Cannot import portfolio file. Please see documentation."
-      )
+      "Cannot import portfolio file. Please see documentation."
     )
   )
 }

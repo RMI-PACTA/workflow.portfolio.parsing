@@ -30,7 +30,8 @@ reexport_portfolio <- function(
 
   file_summary <- list(
     input_filename = input_filename,
-    input_digest = input_digest
+    input_digest = input_digest,
+    system_info = get_system_info()
   )
 
   # read_portfolio_csv retruns NA if it cannot process a portfolio
