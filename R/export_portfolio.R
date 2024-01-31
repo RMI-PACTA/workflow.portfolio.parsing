@@ -2,7 +2,8 @@
 export_portfolio <- function(
   portfolio_data,
   group_data,
-  output_directory
+  output_directory,
+  validate = TRUE
 ) {
 
   logger::log_trace("cleaning and rearranging data prior to export")
@@ -70,6 +71,15 @@ export_portfolio <- function(
     as.list(group_data)
   )
 
+  if (validate) {
+    logger::log_trace("Validating output.")
+    schema_serialize(
+      object = list(portfolio_metadata),
+      reference = "#/items/properties/portfolios"
+    )
+  } else {
+    logger::log_trace("Skipping JSON validation.")
+  }
 
   return(portfolio_metadata)
 }
