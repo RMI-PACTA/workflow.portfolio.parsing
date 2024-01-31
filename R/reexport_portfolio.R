@@ -19,7 +19,7 @@ reexport_portfolio <- function(
   logger::log_debug("Portfolio data read.")
 
   logger::log_trace("Indentifying portfolio metadata.")
-  input_digest <- digest::digest(
+  input_md5 <- digest::digest(
     object = input_filepath,
     file = TRUE,
     algo = "md5",
@@ -30,7 +30,7 @@ reexport_portfolio <- function(
 
   file_summary <- list(
     input_filename = input_filename,
-    input_digest = input_digest,
+    input_md5 = input_md5,
     system_info = get_system_info()
   )
 

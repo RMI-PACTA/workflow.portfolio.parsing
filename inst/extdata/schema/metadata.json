@@ -12,7 +12,7 @@
         "description": "Filename of the input file.",
         "type": "string"
       },
-      "input_digest": {
+      "input_md5": {
         "description": "md5 filehash of input file.",
         "type": "string",
         "pattern": "^[a-f0-9]{32}$"
@@ -43,7 +43,7 @@
               "type": "string",
               "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[89ab][a-f0-9]{3}-[a-f0-9]{12}.csv$"
             },
-            "output_digest": {
+            "output_md5": {
               "description": "md5 filehash of output file.",
               "type": "string",
               "pattern": "^[a-f0-9]{32}$"
@@ -64,7 +64,7 @@
           },
           "required": [
             "output_filename",
-            "output_digest",
+            "output_md5",
             "output_rows"
           ]
         }
@@ -86,7 +86,7 @@
     },
     "required": [
       "input_filename",
-      "input_digest",
+      "input_md5",
       "portfolios"
     ]
   }

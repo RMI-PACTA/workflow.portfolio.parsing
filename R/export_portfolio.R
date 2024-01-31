@@ -54,7 +54,7 @@ export_portfolio <- function(
   )
   logger::log_debug("Portfolio data written to file: ", output_filepath)
 
-  output_digest <- digest::digest(
+  output_md5 <- digest::digest(
     object = output_filepath,
     file = TRUE,
     algo = "md5",
@@ -64,7 +64,7 @@ export_portfolio <- function(
 
   portfolio_metadata <- c(
     list(
-      output_digest = output_digest,
+      output_md5 = output_md5,
       output_filename = output_filename,
       output_rows = output_rows
     ),
