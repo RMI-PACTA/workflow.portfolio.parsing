@@ -40,12 +40,17 @@ process_directory <- function(
     }
   } else {
     logger::log_warn("Skipping JSON validation.")
-    jsonlite::toJSON(
+    summaries_json <- jsonlite::toJSON(
       x = all_summaries,
       pretty = TRUE,
       auto_unbox = TRUE
     )
   }
+
+  metadata_path <- file.path(output_directory, "processed_portfolios.json")
+  logger::log_info("Writing metadata JSON to file \"", metadata_path, "\".")
+  writeLines(summaries_json, metadata_path)
+  logger::log_debug("Metadata JSON file written.")
 
   return(all_summaries)
 }
