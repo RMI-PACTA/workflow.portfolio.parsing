@@ -19,8 +19,9 @@ schema_serialize <- function(
   } else {
     json_errors <- attributes(json_is_valid)[["errors"]]
     logger::log_warn(
-      "Portfolio metadata could not be validated against ",
-      "JSON schema: \"", schema_file, "\"."
+      "object could not be validated against ",
+      "JSON schema: \"", schema_file, "\",",
+      " reference: \"", reference, "\"."
     )
     logger::log_trace(
       logger::skip_formatter(paste("JSON string: ", json))
@@ -32,7 +33,7 @@ schema_serialize <- function(
         " message: ", json_errors[i, "message"]
       )
     }
-    warning("Portfolio metadata could not be validated against schema.")
+    warning("Object could not be validated against schema.")
   }
   return(json)
 }

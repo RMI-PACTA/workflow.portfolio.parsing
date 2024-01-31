@@ -36,11 +36,14 @@ for (filename in files_to_test) {
       algo = "md5"
     )
     testthat::expect_warning(
-      metadata <- reexport_portfolio(
-        input_filepath = test_file,
-        output_directory = test_dir
+      testthat::expect_warning(
+        metadata <- reexport_portfolio(
+          input_filepath = test_file,
+          output_directory = test_dir
+        ),
+        "^No portfolio data detected in file.$"
       ),
-      "^No portfolio data detected in file.$"
+      "^Object could not be validated against schema.$"
     )
     expect_reexport_failure(
       metadata = metadata,
