@@ -2,7 +2,8 @@
 export_portfolio <- function(
   portfolio_data,
   group_data,
-  output_directory
+  output_directory,
+  validate = TRUE
 ) {
 
   logger::log_trace("cleaning and rearranging data prior to export")
@@ -53,23 +54,32 @@ export_portfolio <- function(
   )
   logger::log_debug("Portfolio data written to file: ", output_filepath)
 
-  output_digest <- digest::digest(
+  output_md5 <- digest::digest(
     object = output_filepath,
     file = TRUE,
     algo = "md5",
     serialize = FALSE
   )
-  logger::log_trace("Portfolio data digest: ", output_digest)
+  logger::log_trace("Portfolio data digest: ", output_md5)
 
   portfolio_metadata <- c(
     list(
-      output_digest = output_digest,
+      output_md5 = output_md5,
       output_filename = output_filename,
       output_rows = output_rows
     ),
     as.list(group_data)
   )
 
+  if (validate) {
+    logger::log_trace("Validating output.")
+    schema_serialize(
+      object = list(portfolio_metadata),
+      reference = "#/items/properties/portfolios"
+    )
+  } else {
+    logger::log_trace("Skipping JSON validation.")
+  }
 
   return(portfolio_metadata)
 }

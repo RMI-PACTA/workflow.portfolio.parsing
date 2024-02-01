@@ -14,7 +14,10 @@ LABEL org.opencontainers.image.authors=""
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
+      libcurl4-openssl-dev=7.81.* \
       libicu-dev=70.* \
+      libnode-dev=12.22.* \
+      libssl-dev=3.0.* \
     && chmod -R a+rwX /root \
     && rm -rf /var/lib/apt/lists/*
 
