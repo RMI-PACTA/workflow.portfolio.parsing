@@ -27,11 +27,13 @@ RoxygenNote: 7.3.1
 Imports: 
     digest,
     dplyr,
+    jsonvalidate (>= 1.4.0),
     logger,
     pacta.portfolio.import,
     uuid
 Remotes:
-    RMI-PACTA/pacta.portfolio.import
+    RMI-PACTA/pacta.portfolio.import,
+    ropensci/jsonvalidate
 Suggests: 
     testthat (>= 3.0.0),
     withr

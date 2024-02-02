@@ -57,7 +57,7 @@ expect_simple_export_portfolio <- function(
     metadata[["output_filename"]]
   )
   # check metadata field names
-  required_fields <- c("output_filename", "output_rows", "output_digest")
+  required_fields <- c("output_filename", "output_rows", "output_md5")
   optional_fields <- c("investor_name", "portfolio_name")
   testthat::expect_contains(names(metadata), required_fields)
   testthat::expect_in(
@@ -93,17 +93,18 @@ expect_simple_reexport <- function(
     object = names(metadata),
     expected = c(
       "group_cols",
-      "input_digest",
+      "input_md5",
       "input_entries",
       "input_filename",
       "portfolios",
-      "subportfolios_count"
+      "subportfolios_count",
+      "system_info"
     )
   )
 
   testthat::expect_null(metadata[["errors"]])
   testthat::expect_setequal(metadata[["group_cols"]], colnames(groups))
-  testthat::expect_identical(metadata[["input_digest"]], input_digest)
+  testthat::expect_identical(metadata[["input_md5"]], input_digest)
   testthat::expect_identical(metadata[["input_entries"]], input_entries)
   testthat::expect_identical(metadata[["input_filename"]], input_filename)
 
@@ -113,7 +114,9 @@ expect_simple_reexport <- function(
     n = metadata[["subportfolios_count"]]
   )
 
-  testthat::expect_identical(metadata[["subportfolios_count"]], max(nrow(groups), 1L))
+  testthat::expect_identical(
+    metadata[["subportfolios_count"]], max(nrow(groups), 1L)
+  )
 
   testthat::expect_null(metadata[["warnings"]])
   testthat::expect_null(metadata[["errors"]])
@@ -135,7 +138,7 @@ expect_simple_reexport <- function(
     required_fields <- c(
       "output_filename",
       "output_rows",
-      "output_digest"
+      "output_md5"
     )
     optional_fields <- c(
       "investor_name",
@@ -209,14 +212,22 @@ expect_reexport_failure <- function(
   input_filename,
   input_digest
 ) {
-  testthat::expect_mapequal(
-    metadata,
+  testthat::expect_setequal(
+    object = names(metadata),
+    expected = c(
+      "errors",
+      "input_md5",
+      "input_filename",
+      "system_info"
+    )
+  )
+  testthat::expect_identical(metadata[["input_md5"]], input_digest)
+  testthat::expect_identical(metadata[["input_filename"]], input_filename)
+  testthat::expect_type(metadata[["errors"]], "list")
+  testthat::expect_identical(
+    metadata[["errors"]],
     list(
-      input_filename = basename(input_filename),
-      input_digest = input_digest,
-      errors = list(
-        "Cannot import portfolio file. Please see documentation."
-      )
+      "Cannot import portfolio file. Please see documentation."
     )
   )
 }

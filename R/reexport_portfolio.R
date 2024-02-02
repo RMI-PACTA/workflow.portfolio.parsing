@@ -1,7 +1,8 @@
 #' @export
 reexport_portfolio <- function(
   input_filepath,
-  output_directory
+  output_directory,
+  validate = TRUE
 ) {
 
   if (length(input_filepath) > 1L) {
@@ -18,7 +19,7 @@ reexport_portfolio <- function(
   logger::log_debug("Portfolio data read.")
 
   logger::log_trace("Indentifying portfolio metadata.")
-  input_digest <- digest::digest(
+  input_md5 <- digest::digest(
     object = input_filepath,
     file = TRUE,
     algo = "md5",
@@ -29,7 +30,8 @@ reexport_portfolio <- function(
 
   file_summary <- list(
     input_filename = input_filename,
-    input_digest = input_digest
+    input_md5 = input_md5,
+    system_info = get_system_info()
   )
 
   # read_portfolio_csv retruns NA if it cannot process a portfolio
@@ -85,6 +87,16 @@ reexport_portfolio <- function(
     )
     file_summary[["warnings"]] <- NULL
     file_summary[["portfolios"]] <- NULL
+  }
+
+  if (validate) {
+    logger::log_trace("Validating output.")
+    schema_serialize(
+      object = file_summary,
+      reference = "#/items"
+    )
+  } else {
+    logger::log_trace("Skipping JSON validation.")
   }
 
   logger::log_info("Finished processing file: ", input_filepath)
