@@ -35,5 +35,5 @@ process_directory <- function(
   writeLines(summaries_json, metadata_path)
   logger::log_debug("Metadata JSON file written.")
 
-  return(all_summaries)
+  return(invisible(all_summaries))
 }

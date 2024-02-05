@@ -1,6 +1,6 @@
 Package: workflow.portfolio.parsing
 Title: Reads, cleans, and reexports portfolios for PACTA
-Version: 0.0.0.9000
+Version: 0.1.0.9000
 Authors@R: 
     c(
       person(
