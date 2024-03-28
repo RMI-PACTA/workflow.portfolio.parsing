@@ -1,3 +1,9 @@
+# Utility functions
+change_colnames <- function(x, colnames) {
+  colnames(x) <- colnames
+  return(x)
+}
+
 # Groups
 empty_groups <- data.frame()
 

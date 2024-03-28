@@ -1,10 +1,18 @@
-simple_portfolio_hash <- digest::digest(
-  object = testthat::test_path(
-    "testdata", "portfolios", "output_simple.csv"
-  ),
-  file = TRUE,
-  algo = "md5"
-)
+simple_portfolio_hash <- local({
+  ff <- withr::local_tempfile(fileext = ".csv")
+  write.csv(
+    x = simple_portfolio,
+    file = ff,
+    row.names = FALSE,
+    na = "",
+    fileEncoding = "UTF-8"
+  )
+  digest::digest(
+    object = ff,
+    file = TRUE,
+    algo = "md5"
+  )
+})
 
 expect_simple_portfolio_file <- function(filepath) {
   # Checking that output file exists.
