@@ -7,15 +7,14 @@ logger::log_threshold("FATAL")
 test_dir <- tempdir()
 withr::defer(unlink(test_dir))
 
-empty_groups <- data.frame()
-simple_groups <- tibble::tribble(
-  ~investor_name, ~portfolio_name,
-  "Simple Investor", "Simple Portfolio"
-)
-
 test_that("re-exporting simple file works.", {
-  test_file <- testthat::test_path(
-    "testdata", "portfolios", "simple.csv"
+  test_dir <- withr::local_tempdir()
+  test_file <- withr::local_tempfile(fileext = ".csv")
+  write.csv(
+    x = simple_portfolio,
+    file = test_file,
+    row.names = FALSE,
+    quote = FALSE
   )
   filehash <- digest::digest(
     object = test_file,
@@ -36,32 +35,44 @@ test_that("re-exporting simple file works.", {
   )
 })
 
-test_that("re-exporting simple exported file yields same file.", {
-  test_file <- testthat::test_path(
-    "testdata", "portfolios", "output_simple.csv"
+test_that("re-exporting exported file yields same file.", {
+  test_dir <- withr::local_tempdir()
+  test_file <- withr::local_tempfile(fileext = ".csv")
+  write.csv(
+    x = simple_portfolio_all_columns,
+    file = test_file,
+    row.names = FALSE,
+    quote = FALSE
   )
-  filehash <- digest::digest(
-    object = test_file,
-    file = TRUE,
-    algo = "md5"
+  metadata_input <- reexport_portfolio(
+    input_filepath = test_file,
+    output_directory = test_dir
   )
   metadata <- reexport_portfolio(
-    input_filepath = test_file,
+    input_filepath = file.path(
+      test_dir,
+      metadata_input[["portfolios"]][[1]][["output_filename"]]
+    ),
     output_directory = test_dir
   )
   expect_simple_reexport(
     output_dir = test_dir,
     metadata = metadata,
     groups = empty_groups,
-    input_digest = filehash,
-    input_filename = basename(test_file),
+    input_digest = metadata_input[["portfolios"]][[1]][["output_md5"]],
+    input_filename = metadata_input[["portfolios"]][[1]][["output_filename"]],
     input_entries = 1L
   )
 })
 
 test_that("re-exporting simple file with all columns works", {
-  test_file <- testthat::test_path(
-    "testdata", "portfolios", "simple_all-columns.csv"
+  test_dir <- withr::local_tempdir()
+  test_file <- withr::local_tempfile(fileext = ".csv")
+  write.csv(
+    x = simple_portfolio_all_columns,
+    file = test_file,
+    row.names = FALSE,
+    quote = FALSE
   )
   filehash <- digest::digest(
     object = test_file,
@@ -82,44 +93,50 @@ test_that("re-exporting simple file with all columns works", {
   )
 })
 
-test_that("re-exporting empty file fails.", {
-  skip() #TODO: enable this test
-  test_file <- testthat::test_path(
-    "testdata", "portfolios", "simple_all-columns_empty.csv"
-  )
-  filehash <- digest::digest(
-    object = test_file,
-    file = TRUE,
-    algo = "md5"
-  )
-  metadata <- reexport_portfolio(
-    input_filepath = test_file,
-    output_directory = test_dir
-  )
-  expect_reexport_failure(
-    metadata = metadata,
-    input_filename = basename(test_file),
-    input_digest = filehash
-  )
-})
+# test_that("re-exporting empty file fails.", {
+#   skip() #TODO: enable this test
+#   test_file <- testthat::test_path(
+#     "testdata", "portfolios", "simple_all-columns_empty.csv"
+#   )
+#   filehash <- digest::digest(
+#     object = test_file,
+#     file = TRUE,
+#     algo = "md5"
+#   )
+#   metadata <- reexport_portfolio(
+#     input_filepath = test_file,
+#     output_directory = test_dir
+#   )
+#   expect_reexport_failure(
+#     metadata = metadata,
+#     input_filename = basename(test_file),
+#     input_digest = filehash
+#   )
+# })
 
 test_that("re-exporting multiportfolio file with all columns works", {
-  test_file <- testthat::test_path(
-    "testdata", "portfolios", "multi_simple_all-columns_portfolioname.csv"
-  )
-  filehash <- digest::digest(
-    object = test_file,
-    file = TRUE,
-    algo = "md5"
-  )
-  metadata <- reexport_portfolio(
-    input_filepath = test_file,
-    output_directory = test_dir
-  )
+  test_dir <- withr::local_tempdir()
+  test_file <- withr::local_tempfile(fileext = ".csv")
   groups <- tibble::tribble(
     ~investor_name, ~portfolio_name,
     "Simple Investor", "Portfolio A",
     "Simple Investor", "Portfolio B"
+  )
+  multi_port <- dplyr::cross_join(groups, simple_portfolio)
+  write.csv(
+    x = multi_port,
+    file = test_file,
+    row.names = FALSE,
+    quote = FALSE
+  )
+  filehash <- digest::digest(
+    object = test_file,
+    file = TRUE,
+    algo = "md5"
+  )
+  metadata <- reexport_portfolio(
+    input_filepath = test_file,
+    output_directory = test_dir
   )
   expect_simple_reexport(
     output_dir = test_dir,
