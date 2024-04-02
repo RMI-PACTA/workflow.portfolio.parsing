@@ -1,4 +1,17 @@
-#' @ export
+#' export a PACTA portfolio in a standard format
+#'
+#' This function takes a pacta portfolio as a data frame, and exports it to a
+#' csv file in `output_directory`. optionally (default on), it can validate the
+#' metadata that will be attached to this file export.
+#'
+#' @param portfolio_data data frame with the portfolio data
+#' @param group_data list or data frame with the group data
+#' @param output_directory character with the directory where the file will be
+#' @param validate logical, should the output be validated against the schema?
+#'
+#' @return portfolio metadata (as nested list) for exported file, pramirly
+#' called for side effect of writing file to disk.
+#' @export
 export_portfolio <- function(
   portfolio_data,
   group_data,
