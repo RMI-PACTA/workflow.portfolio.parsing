@@ -1,6 +1,6 @@
 get_system_info <- function() {
   logger::log_trace("Getting system information")
-  package <- utils::getPackageName()
+  package <- methods::getPackageName()
   version <- as.character(utils::packageVersion(package))
   logger::log_trace("Package: ", package, " version: ", version)
   raw_deps <- trimws(
