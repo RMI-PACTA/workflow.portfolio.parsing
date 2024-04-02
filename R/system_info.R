@@ -1,11 +1,11 @@
 get_system_info <- function() {
   logger::log_trace("Getting system information")
-  package <- getPackageName()
-  version <- as.character(packageVersion(package))
+  package <- utils::getPackageName()
+  version <- as.character(utils::packageVersion(package))
   logger::log_trace("Package: ", package, " version: ", version)
   raw_deps <- trimws(
     strsplit(
-      x = packageDescription(package)[["Imports"]],
+      x = utils::packageDescription(package)[["Imports"]],
       split = ",",
       fixed = TRUE
     )[[1L]]
@@ -23,7 +23,7 @@ get_system_info <- function() {
       FUN = function(x) {
         list(
           package = x,
-          version = as.character(packageVersion(x))
+          version = as.character(utils::packageVersion(x))
         )
       }
     )

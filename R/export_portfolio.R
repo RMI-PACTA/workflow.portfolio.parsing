@@ -45,7 +45,7 @@ export_portfolio <- function(
   )
 
   logger::log_trace("Writing portfolio data to file: ", output_filepath)
-  write.csv(
+  utils::write.csv(
     x = portfolio_data,
     file = output_filepath,
     row.names = FALSE,
