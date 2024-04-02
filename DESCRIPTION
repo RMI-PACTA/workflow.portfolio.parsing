@@ -37,6 +37,7 @@ Remotes:
     RMI-PACTA/pacta.portfolio.import,
     ropensci/jsonvalidate
 Suggests: 
+    rlang,
     testthat (>= 3.0.0),
     tibble,
     withr
