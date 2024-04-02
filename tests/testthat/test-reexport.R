@@ -51,7 +51,7 @@ test_that("re-exporting exported file yields same file.", {
   metadata <- reexport_portfolio(
     input_filepath = file.path(
       test_dir,
-      metadata_input[["portfolios"]][[1]][["output_filename"]]
+      metadata_input[["portfolios"]][[1L]][["output_filename"]]
     ),
     output_directory = test_dir
   )
@@ -59,8 +59,8 @@ test_that("re-exporting exported file yields same file.", {
     output_dir = test_dir,
     metadata = metadata,
     groups = empty_groups,
-    input_digest = metadata_input[["portfolios"]][[1]][["output_md5"]],
-    input_filename = metadata_input[["portfolios"]][[1]][["output_filename"]],
+    input_digest = metadata_input[["portfolios"]][[1L]][["output_md5"]],
+    input_filename = metadata_input[["portfolios"]][[1L]][["output_filename"]],
     input_entries = 1L
   )
 })
@@ -93,26 +93,34 @@ test_that("re-exporting simple file with all columns works", {
   )
 })
 
-# test_that("re-exporting empty file fails.", {
-#   skip() #TODO: enable this test
-#   test_file <- testthat::test_path(
-#     "testdata", "portfolios", "simple_all-columns_empty.csv"
-#   )
-#   filehash <- digest::digest(
-#     object = test_file,
-#     file = TRUE,
-#     algo = "md5"
-#   )
-#   metadata <- reexport_portfolio(
-#     input_filepath = test_file,
-#     output_directory = test_dir
-#   )
-#   expect_reexport_failure(
-#     metadata = metadata,
-#     input_filename = basename(test_file),
-#     input_digest = filehash
-#   )
-# })
+test_that("re-exporting empty file fails.", {
+  test_dir <- withr::local_tempdir()
+  test_file <- withr::local_tempfile(fileext = ".csv")
+  file.create(test_file)
+  expect_identical(as.integer(file.size(test_file)), 0L)
+  filehash <- digest::digest(
+    object = test_file,
+    file = TRUE,
+    algo = "md5"
+  )
+  expect_multiple_conditions(
+    {
+      metadata <- reexport_portfolio(
+        input_filepath = test_file,
+        output_directory = test_dir
+      )
+    },
+    warning = c(
+      "No portfolio data detected in file.",
+      "Object could not be validated against schema."
+    )
+  )
+  expect_reexport_failure(
+    metadata = metadata,
+    input_filename = basename(test_file),
+    input_digest = filehash
+  )
+})
 
 test_that("re-exporting multiportfolio file with all columns works", {
   test_dir <- withr::local_tempdir()
