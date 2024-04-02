@@ -30,6 +30,7 @@ Imports:
     jsonlite,
     jsonvalidate (>= 1.4.0),
     logger,
+    methods,
     pacta.portfolio.import,
     uuid
 Remotes:
