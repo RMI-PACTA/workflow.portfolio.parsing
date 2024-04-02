@@ -1,3 +1,15 @@
+#' re-export a directory of PACTA portfolios in a standard format
+#'
+#' This function takes a directory containing pacta portfolios as a file, and
+#' exports them to a csv file in `output_directory`. optionally (default on),
+#' it can validate the metadata that will be attached to this file export.
+#'
+#' @param input_directory path to directory with input files
+#' @param output_directory character with the directory where the file will be
+#' @param validate logical, should the output be validated against the schema?
+#'
+#' @return portfolio metadata (as nested list) for exported files, primarily
+#' called for side effect of writing files to disk.
 #' @export
 process_directory <- function(
   input_directory = "/mnt/input",
