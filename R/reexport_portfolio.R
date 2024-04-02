@@ -1,3 +1,15 @@
+#' re-export a PACTA portfolio in a standard format
+#'
+#' This function takes a pacta portfolio as a file, and exports it to a
+#' csv file in `output_directory`. optionally (default on), it can validate the
+#' metadata that will be attached to this file export.
+#'
+#' @param input_filepath path to input file
+#' @param output_directory character with the directory where the file will be
+#' @param validate logical, should the output be validated against the schema?
+#'
+#' @return portfolio metadata (as nested list) for exported file, primarily
+#' called for side effect of writing file to disk.
 #' @export
 reexport_portfolio <- function(
   input_filepath,
