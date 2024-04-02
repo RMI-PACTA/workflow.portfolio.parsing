@@ -44,7 +44,7 @@ colnames_to_test <- list(
 
 for (x in seq_along(colnames_to_test)) {
   testthat::test_that(
-    desc = paste(
+    desc = paste( # nolint: indentation_linter
       "re-exporting robust header formats -",
       names(colnames_to_test)[x]
     ),
@@ -139,4 +139,3 @@ test_that("re-exporting robust header formats - no headers all_columns", {
     input_entries = 1L
   )
 })
-

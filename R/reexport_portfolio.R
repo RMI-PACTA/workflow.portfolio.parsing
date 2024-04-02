@@ -105,7 +105,7 @@ reexport_portfolio <- function(
     logger::log_trace("Validating output.")
     schema_serialize(
       object = file_summary,
-      reference = "#/items"
+      reference = "#/items" # nolint: nonportable_path_linter
     )
   } else {
     logger::log_trace("Skipping JSON validation.")

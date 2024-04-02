@@ -18,7 +18,7 @@ expect_simple_portfolio_file <- function(filepath) {
   # Checking that output file exists.
   testthat::expect_true(file.exists(filepath))
   # Checking that output file has correct hash.
-  testthat::expect_equal(
+  testthat::expect_identical(
     digest::digest(
       object = filepath,
       file = TRUE,
@@ -29,7 +29,7 @@ expect_simple_portfolio_file <- function(filepath) {
 
   file_contents <- read.csv(filepath)
   # Check that output file has correct column names.
-  testthat::expect_equal(
+  testthat::expect_identical(
     colnames(file_contents),
     c(
       "isin",
@@ -38,15 +38,15 @@ expect_simple_portfolio_file <- function(filepath) {
     )
   )
   # Check that output file has correct column types.
-  testthat::expect_equal(class(file_contents[["isin"]]), "character")
+  testthat::expect_type(file_contents[["isin"]], "character")
   testthat::expect_in(
     class(file_contents[["market_value"]]),
     c("numeric", "integer")
   )
-  testthat::expect_equal(class(file_contents[["currency"]]), "character")
+  testthat::expect_type(file_contents[["currency"]], "character")
 
   # Check file encoding
-  testthat::expect_equal(
+  testthat::expect_identical(
     pacta.portfolio.import::guess_file_encoding(filepath),
     "ascii"
   )
@@ -74,15 +74,15 @@ expect_simple_export_portfolio <- function(
   )
 
   # Check investor and portfolio names
-  # Note that expect_equal() works for comparing NULL
-  testthat::expect_equal(metadata[["investor_name"]], investor_name)
-  testthat::expect_equal(metadata[["portfolio_name"]], portfolio_name)
+  # Note that expect_identical() works for comparing NULL
+  testthat::expect_identical(metadata[["investor_name"]], investor_name)
+  testthat::expect_identical(metadata[["portfolio_name"]], portfolio_name)
   # Checking that output file has correct number of rows.
-  testthat::expect_equal(metadata[["output_rows"]], 1L)
+  testthat::expect_identical(metadata[["output_rows"]], 1L)
   # read file (should be small)
   # check that metadata row count is same as actual
   file_content_rows <- expect_simple_portfolio_file(output_filepath)
-  testthat::expect_equal(
+  testthat::expect_identical(
     metadata[["output_rows"]],
     file_content_rows
   )
@@ -129,7 +129,7 @@ expect_simple_reexport <- function(
   testthat::expect_null(metadata[["warnings"]])
   testthat::expect_null(metadata[["errors"]])
 
-  observed_groups <- groups[0, ]
+  observed_groups <- groups[0L, ]
   # for each entry in the metadata
   for (x in metadata[["portfolios"]]) {
     # check that the output file exists
@@ -168,7 +168,7 @@ expect_simple_reexport <- function(
       "investor_name" %in% names(groups) &&
         "portfolio_name" %in% names(groups)
     ) {
-      testthat::expect_equal(
+      testthat::expect_identical(
         nrow(groups[
           groups[["investor_name"]] == x[["investor_name"]] &
             groups[["portfolio_name"]] == x[["portfolio_name"]],
@@ -180,36 +180,36 @@ expect_simple_reexport <- function(
         portfolio_name = x[["portfolio_name"]]
       )
     } else if ("investor_name" %in% names(groups)) {
-      testthat::expect_equal(
+      testthat::expect_identical(
         nrow(groups[
           groups[["investor_name"]] == x[["investor_name"]],
         ]),
         1L
       )
-      testthat::expect_equal(x[["portfolio_name"]], NULL)
+      testthat::expect_null(x[["portfolio_name"]])
       this_group <- data.frame(
         investor_name = x[["investor_name"]]
       )
     } else if ("portfolio_name" %in% names(groups)) {
-      testthat::expect_equal(
+      testthat::expect_identical(
         nrow(groups[
           groups[["portfolio_name"]] == x[["portfolio_name"]],
         ]),
         1L
       )
-      testthat::expect_equal(x[["investor_name"]], NULL)
+      testthat::expect_null(x[["investor_name"]])
       this_group <- data.frame(
         portfolio_name = x[["portfolio_name"]]
       )
     } else {
-      testthat::expect_equal(x[["investor_name"]], NULL)
-      testthat::expect_equal(x[["portfolio_name"]], NULL)
+      testthat::expect_null(x[["investor_name"]])
+      testthat::expect_null(x[["portfolio_name"]])
       this_group <- data.frame()
     }
     observed_groups <- dplyr::bind_rows(observed_groups, this_group)
   }
   # Test that all observed groups are the expected groups
-  testthat::expect_equal(
+  testthat::expect_identical(
     dplyr::arrange(observed_groups, !!!rlang::syms(colnames(groups))),
     dplyr::arrange(groups, !!!rlang::syms(colnames(groups)))
   )

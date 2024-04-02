@@ -23,7 +23,7 @@ simple_portfolio_all_columns <- dplyr::select(
     .data = simple_portfolio,
     portfolio_name = "Simple Portfolio",
     investor_name = "Simple Investor"
-    ),
+  ),
   investor_name,
   portfolio_name,
   isin,

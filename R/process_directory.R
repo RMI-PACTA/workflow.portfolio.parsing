@@ -12,8 +12,8 @@
 #' called for side effect of writing files to disk.
 #' @export
 process_directory <- function(
-  input_directory = "/mnt/input",
-  output_directory = "/mnt/output",
+  input_directory = "/mnt/input", # nolint: nonportable_path_linter
+  output_directory = "/mnt/output", # nolint: nonportable_path_linter
   validate = TRUE
 ) {
   # Get the list of files in the directory

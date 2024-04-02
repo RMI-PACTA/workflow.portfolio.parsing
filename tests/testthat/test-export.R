@@ -34,7 +34,7 @@ test_that("exporting works, against extra columns", {
     foo = "bar"
   )
   expect_warning(
-    metadata <- export_portfolio(
+    metadata <- export_portfolio( # nolint: implicit_assignment_linter
       portfolio_data = extra_cols_portfolio,
       group_data = empty_groups,
       output_directory = test_dir
