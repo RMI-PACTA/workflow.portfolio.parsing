@@ -21,7 +21,7 @@ export_portfolio <- function(
   if (length(missing_cols)) {
     logger::log_warn(
       "Missing columns detected in portfolio data: ",
-      missing_cols,
+      missing_cols
     )
     stop("Missing columns detected in portfolio data.")
   }
@@ -75,7 +75,7 @@ export_portfolio <- function(
     logger::log_trace("Validating output.")
     schema_serialize(
       object = list(portfolio_metadata),
-      reference = "#/items/properties/portfolios"
+      reference = "#/items/properties/portfolios" # nolint: nonportable_path_linter
     )
   } else {
     logger::log_trace("Skipping JSON validation.")
