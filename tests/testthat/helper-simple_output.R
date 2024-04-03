@@ -27,7 +27,7 @@ expect_simple_portfolio_file <- function(filepath) {
     simple_portfolio_hash
   )
 
-  file_contents <- read.csv(filepath)
+  file_contents <- read.csv(filepath, stringsAsFactors = FALSE)
   # Check that output file has correct column names.
   testthat::expect_identical(
     colnames(file_contents),
