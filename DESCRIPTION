@@ -1,6 +1,6 @@
 Package: workflow.portfolio.parsing
 Title: Reads, cleans, and reexports portfolios for PACTA
-Version: 0.1.0.9000
+Version: 0.1.0.9001
 Authors@R: 
     c(
       person(
@@ -27,14 +27,18 @@ RoxygenNote: 7.3.1
 Imports: 
     digest,
     dplyr,
+    jsonlite,
     jsonvalidate (>= 1.4.0),
     logger,
+    methods,
     pacta.portfolio.import,
     uuid
 Remotes:
     RMI-PACTA/pacta.portfolio.import,
     ropensci/jsonvalidate
 Suggests: 
+    rlang,
     testthat (>= 3.0.0),
+    tibble,
     withr
 Config/testthat/edition: 3

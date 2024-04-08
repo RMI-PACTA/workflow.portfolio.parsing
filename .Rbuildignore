@@ -1,1 +1,6 @@
+.dockerignore
+.github/
+.lintr
 ^LICENSE\.md$
+Dockerfile
+docker-compose.yml

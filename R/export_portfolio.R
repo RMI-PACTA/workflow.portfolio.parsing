@@ -1,4 +1,17 @@
-#' @ export
+#' export a PACTA portfolio in a standard format
+#'
+#' This function takes a pacta portfolio as a data frame, and exports it to a
+#' csv file in `output_directory`. optionally (default on), it can validate the
+#' metadata that will be attached to this file export.
+#'
+#' @param portfolio_data data frame with the portfolio data
+#' @param group_data list or data frame with the group data
+#' @param output_directory character with the directory where the file will be
+#' @param validate logical, should the output be validated against the schema?
+#'
+#' @return portfolio metadata (as nested list) for exported file, pramirly
+#' called for side effect of writing file to disk.
+#' @export
 export_portfolio <- function(
   portfolio_data,
   group_data,
@@ -21,7 +34,7 @@ export_portfolio <- function(
   if (length(missing_cols)) {
     logger::log_warn(
       "Missing columns detected in portfolio data: ",
-      missing_cols,
+      missing_cols
     )
     stop("Missing columns detected in portfolio data.")
   }
@@ -45,7 +58,7 @@ export_portfolio <- function(
   )
 
   logger::log_trace("Writing portfolio data to file: ", output_filepath)
-  write.csv(
+  utils::write.csv(
     x = portfolio_data,
     file = output_filepath,
     row.names = FALSE,
@@ -75,7 +88,7 @@ export_portfolio <- function(
     logger::log_trace("Validating output.")
     schema_serialize(
       object = list(portfolio_metadata),
-      reference = "#/items/properties/portfolios"
+      reference = "#/items/properties/portfolios" # nolint: nonportable_path_linter
     )
   } else {
     logger::log_trace("Skipping JSON validation.")
